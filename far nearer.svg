@@ -29,11 +29,11 @@
      showgrid="false"
      inkscape:zoom="0.13338729"
      inkscape:cx="2560.2139"
-     inkscape:cy="1450.6629"
+     inkscape:cy="1450.663"
      inkscape:window-width="1900"
      inkscape:window-height="711"
      inkscape:window-x="10"
-     inkscape:window-y="35"
+     inkscape:window-y="25"
      inkscape:window-maximized="0"
      inkscape:current-layer="layer1"
      units="px"
@@ -102,7 +102,8 @@
        y="-1.5140281"
        inkscape:export-filename="/Users/jared.beach/Pictures/wallpapers/far nearer.png"
        inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96" />
+       inkscape:export-ydpi="96"
+       inkscape:label="bg" />
     <rect
        style="display:inline;fill:#fda460;fill-opacity:1;stroke:#fe1274;stroke-width:0.25;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
        id="rect8831"
@@ -110,13 +111,15 @@
        height="70.544968"
        x="-257.88474"
        y="396.85822"
-       transform="rotate(-40.718377)" />
+       transform="rotate(-40.718377)"
+       inkscape:label="shape" />
     <rect
        style="display:inline;fill:url(#radialGradient6287);fill-opacity:1;stroke-width:0.314666;stroke-linecap:round;stroke-linejoin:round"
        id="rect6189"
        width="1012.5754"
        height="813.70496"
        x="1.402599"
-       y="1.2041174" />
+       y="1.2041174"
+       inkscape:label="spot" />
   </g>
 </svg>
