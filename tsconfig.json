@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "lib",
+    "target": "es3"
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
