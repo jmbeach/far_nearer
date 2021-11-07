@@ -17,9 +17,9 @@ const adjustColor = (color: number, amount: number) => {
 }
 
 for (let i = 0; i < 360; i++) {
-  const newColor1 = hsl(adjustColor(hue1, i), color1SL[0], color1SL[1]);
-  const newColor2 = hsl(adjustColor(hue2, i), color2SL[0], color2SL[1]);
-  const newColor3 = hsl(adjustColor(hue3, i), color3SL[0], color3SL[1]);
+  const newColor1 = hsl(adjustColor(hue1, i), color1SL[0], color1SL[1] + 40);
+  const newColor2 = hsl(adjustColor(hue2, i), color2SL[0], color2SL[1] + 40);
+  const newColor3 = hsl(adjustColor(hue3, i), color3SL[0], color3SL[1] + 50);
   let result = farNearer.replace(/COLOR_1/g, newColor1)
   result = result.replace(/COLOR_2/g, newColor2)
   result = result.replace(/COLOR_3/g, newColor3)
