@@ -24,10 +24,10 @@ const testPath = (path: string) => {
     return false
   }
 }
-for (let i = 0; i < 360; i++) {
-  const newColor1 = Color.hsl(adjustColor(hue1, i), color1SL[0], color1SL[1] - 40);
-  const newColor2 = Color.hsl(adjustColor(hue2, i), color2SL[0], color2SL[1] - 40);
-  const newColor3 = Color.hsl(adjustColor(hue3, i), color3SL[0], color3SL[1] - 50);
+for (let i = 0; i < 360; i+=10) {
+  const newColor1 = Color.hsl(adjustColor(hue1, i), color1SL[0], color1SL[1] - 45);
+  const newColor2 = Color.hsl(adjustColor(hue2, i), color2SL[0], color2SL[1] - 45);
+  const newColor3 = Color.hsl(adjustColor(hue3, i), color3SL[0], color3SL[1] - 30);
   let result = farNearer.replace(/COLOR_1/g, newColor1.hex())
   result = result.replace(/COLOR_2/g, newColor2.hex())
   result = result.replace(/COLOR_3/g, newColor3.hex())
