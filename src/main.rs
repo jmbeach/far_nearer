@@ -1,4 +1,6 @@
 use std::fs;
+use resvg::usvg;
+use resvg::usvg::TreeParsing;
 
 fn main() {
     let far_nearer = fs::read_to_string("far nearer_template.svg")
@@ -7,16 +9,18 @@ fn main() {
         let hsl1 = HSL::new(305, 100, 50);
         let hsl2 = HSL::new(337, 100, 49);
         let hsl3 = HSL::new(34, 100, 50);
-        let saturation_adjustment = -10;
-        let lightness_adjustment = -10;
+        let saturation_adjustment = -50;
+        let lightness_adjustment = -30;
         let (hsl1, hsl2, hsl3) = adjust_hues(&hsl1, &hsl2, &hsl3, i);
         let (hsl1, hsl2, hsl3) = adjust_saturations(&hsl1, &hsl2, &hsl3, saturation_adjustment);
         let (hsl1, hsl2, hsl3) = adjust_lightnesses(&hsl1, &hsl2, &hsl3, lightness_adjustment);
         let result = replace_colors(far_nearer.clone(), &hsl1, &hsl2, &hsl3);
         let out_folder = "generated";
         create_out_folder(out_folder);
-        let out_file = format!("{}/far-nearer-{}.svg", out_folder, i);
-        fs::write(&out_file, &result).expect("Failed to write to file");
+        let out_file = format!("{}/far-nearer-{}.png", out_folder, i);
+        let rtree = get_rtree(result.clone());
+        println!("Saving {}", out_file);
+        save_png(rtree, &out_file);
     }
 }
 
@@ -36,12 +40,26 @@ impl HSL {
     }
 }
 
+fn get_rtree(text: String) -> resvg::Tree {
+    let opt = usvg::Options::default();
+    let tree = usvg::Tree::from_str(&text, &opt).unwrap();
+    resvg::Tree::from_usvg(&tree)
+}
+
+fn save_png(rtree: resvg::Tree, out_file: &str) {
+    let pixmap_size = rtree.size.to_int_size();
+    let mut pixmap = resvg::tiny_skia::Pixmap::new(pixmap_size.width(), pixmap_size.height()).unwrap();
+    rtree.render(resvg::tiny_skia::Transform::default(), &mut pixmap.as_mut());
+    pixmap.save_png(&out_file).unwrap();
+}
+
 fn replace_colors(text: String, hsl1: &HSL, hsl2: &HSL, hsl3: &HSL) -> String {
-    let result = replace_color(text, "COLOR1", hsl1);
-    let result = replace_color(result, "COLOR2", hsl2);
-    let result = replace_color(result, "COLOR3", hsl3);
+    let result = replace_color(text, "COLOR_1", hsl1);
+    let result = replace_color(result, "COLOR_2", hsl2);
+    let result = replace_color(result, "COLOR_3", hsl3);
     result
 }
+
 fn replace_color(text: String, from: &str, to: &HSL) -> String {
     text.replace(from, &format!("hsl({},{}%,{}%)", to.hue, to.saturation, to.lightness))
 }
