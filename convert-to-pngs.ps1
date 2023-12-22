@@ -1,4 +1,4 @@
-Get-ChildItem generated | ForEach-Object {
+Get-ChildItem generated/*.svg | ForEach-Object {
   $file = $_
   $outName = "generated/" + $file.Name + ".png"
   C:\Program` Files\Inkscape\bin\inkscape.exe --export-type png --export-filename $outName -w 1920 $file.FullName
