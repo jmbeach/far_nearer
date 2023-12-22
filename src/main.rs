@@ -2,10 +2,13 @@ use std::fs;
 use resvg::usvg;
 use resvg::usvg::TreeParsing;
 
+use rayon::prelude::*;
+
 fn main() {
     let far_nearer = fs::read_to_string("far nearer_template.svg")
         .expect("Something went wrong reading the file");
-    for i in (0..360).step_by(10) {
+
+    (0..360).into_par_iter().step_by(10).for_each(|i| {
         let hsl1 = HSL::new(305, 100, 50);
         let hsl2 = HSL::new(337, 100, 49);
         let hsl3 = HSL::new(34, 100, 50);
@@ -21,7 +24,7 @@ fn main() {
         let rtree = get_rtree(result.clone());
         println!("Saving {}", out_file);
         save_png(rtree, &out_file);
-    }
+    });
 }
 
 struct HSL {
