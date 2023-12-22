@@ -9,12 +9,18 @@ fn main() {
         .expect("Something went wrong reading the file");
 
     (0..360).into_par_iter().step_by(10).for_each(|i| {
+        let hue1_adjustment = 0;
+        let hue2_adjustment = 0;
+        let hue3_adjustment = 0;
+        // https://colorpicker.me/#ff00ea
         let hsl1 = HSL::new(305, 100, 50);
+        // https://colorpicker.me/#fa0060
         let hsl2 = HSL::new(337, 100, 49);
+        // https://colorpicker.me/#ff9100
         let hsl3 = HSL::new(34, 100, 50);
-        let saturation_adjustment = -50;
-        let lightness_adjustment = -30;
-        let (hsl1, hsl2, hsl3) = adjust_hues(&hsl1, &hsl2, &hsl3, i);
+        let saturation_adjustment = -10;
+        let lightness_adjustment = -25;
+        let (hsl1, hsl2, hsl3) = adjust_hues(&hsl1, &hsl2, &hsl3, i, hue1_adjustment, hue2_adjustment, hue3_adjustment);
         let (hsl1, hsl2, hsl3) = adjust_saturations(&hsl1, &hsl2, &hsl3, saturation_adjustment);
         let (hsl1, hsl2, hsl3) = adjust_lightnesses(&hsl1, &hsl2, &hsl3, lightness_adjustment);
         let result = replace_colors(far_nearer.clone(), &hsl1, &hsl2, &hsl3);
@@ -89,11 +95,13 @@ fn adjust_saturations(hsl1: &HSL, hsl2: &HSL, hsl3: &HSL, amount: i32) -> (HSL, 
     )
 }
 
-fn adjust_hues(hsl1: &HSL, hsl2: &HSL, hsl3: &HSL, amount: i32) -> (HSL, HSL, HSL) {
+// adjusts the hues of the three colors present in the template. x_adjustment variables are used to offset the original hues individually.
+// Amount is used to change the hues of all three colors together.
+fn adjust_hues(hsl1: &HSL, hsl2: &HSL, hsl3: &HSL, amount: i32, hsl1_adjustment: i32, hsl2_adjustment: i32, hsl3_adjustment: i32) -> (HSL, HSL, HSL) {
     (
-        adjust_hue(hsl1, amount),
-        adjust_hue(hsl2, amount),
-        adjust_hue(hsl3, amount),
+        adjust_hue(hsl1, amount + hsl1_adjustment),
+        adjust_hue(hsl2, amount + hsl2_adjustment),
+        adjust_hue(hsl3, amount + hsl3_adjustment),
     )
 }
 
